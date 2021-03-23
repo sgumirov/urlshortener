@@ -1,0 +1,6 @@
+FROM adoptopenjdk/openjdk8:jdk8u272-b10
+
+COPY --chown=root:root . /src
+WORKDIR /src
+RUN ./gradlew help --no-daemon
+

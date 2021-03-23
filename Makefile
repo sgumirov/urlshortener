@@ -13,7 +13,7 @@ CNT=url-shortener
 # Be sure to place this BEFORE `include` directives, if any.
 THIS_FILE := $(lastword $(MAKEFILE_LIST))
 
-.PHONY: run help test version start stop status logs build tests-local publish-container restart-container build-test-container tests-basic tests-local start-container stop-container all-tests-container unit-tests-container unit-tests
+.PHONY: run-local help test version start stop status logs build publish restart build-test test start stop test-container
 .DEFAULT_GOAL:=help
 
 build :
@@ -25,23 +25,23 @@ build-test :
 	@docker build -t $(IMAGE-TEST) -f Dockerfile-test .
 	@echo "Test container image built OK"
 
-start-container :
+start :
 	@docker run -d --rm -p $(PORT):8080/tcp --name $(CNT)-production $(IMAGE):production
 
-run : 
+run-local : 
 	@echo "Running locally..."
-	@./gradlew run
+	@./gradlew bootRun
 
-stop-container :
+stop :
 	@docker stop $(CNT)-production || echo "INFO: Container is not running, nothing to stop"
 
-publish-container : build
+publish : build
 	@echo "List of all related images:"
 	@docker image ls | grep $(IMAGE)
 	@echo "Tagging image=$(IMAGE) tag=latest with tag=production..."
 	@docker tag $(IMAGE) $(IMAGE):production
 
-restart-container : stop-container start-container
+restart : stop start
 
 status :
 	@docker ps | grep $(CNT)
@@ -57,13 +57,13 @@ help : version
 	@echo "Targets list:"
 	@grep ' :' Makefile | egrep -v ".PHONY|.DEFAULT_GOAL|^\t|THIS" | cut -d ":" -f1
 
-tests :
-	@echo "Running tests..."
+test :
+	@echo "Running tests locally..."
 	./gradlew --rerun-tasks test integrationTest
 	@echo "Tests PASSED OK"
 
-tests-container : build-test
+test-container : build-test
 	@echo "Running all tests in container"
-	docker run -t --rm --name $(CNT)-tests -e TERM='dumb' $(IMAGE-TEST) ./gradlew --rerun-tasks test integrationTest
+	docker run -t --rm --name $(CNT)-tests -e TERM='dumb' $(IMAGE-TEST) ./gradlew :test -i
 	@echo "All tests PASSED OK"
 

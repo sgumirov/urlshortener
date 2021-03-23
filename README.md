@@ -15,6 +15,14 @@ For a list of operations see HTTP Endpoints section below.
                         ----------------------
 ```
 
+## Quick run
+
+In docker:  
+`make publish start`
+
+Locally:  
+`make run-local`
+
 ## Frontends
 
 ### HTTP Endpoints

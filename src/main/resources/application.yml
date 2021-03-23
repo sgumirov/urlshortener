@@ -1,0 +1,15 @@
+spring:
+  application:
+    name: urlshortener
+  profiles:
+    active: dev
+  mvc:
+    static-path-pattern: /**
+
+management:
+  endpoint:
+    web:
+      exposure:
+        include: httptrace
+    httptrace:
+      enabled: true

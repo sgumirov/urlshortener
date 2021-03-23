@@ -1,0 +1,37 @@
+plugins {
+	id 'org.springframework.boot' version '2.4.4'
+	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+	id 'java'
+}
+
+group = 'com.gumirov.shamil'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '1.8'
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+//	implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+
+	compile 'io.lettuce:lettuce-core:6.0.3.RELEASE'
+
+	compile 'org.modelmapper:modelmapper:2.3.9'
+	compile 'org.springframework.boot:spring-boot-starter-validation:2.4.3'
+
+	implementation 'org.springframework.boot:spring-boot-starter-actuator'
+
+	compileOnly 'org.projectlombok:lombok:1.18.18'
+	annotationProcessor 'org.projectlombok:lombok:1.18.18'
+
+	testCompileOnly 'org.projectlombok:lombok:1.18.18'
+	testAnnotationProcessor 'org.projectlombok:lombok:1.18.18'
+
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
+
+test {
+	useJUnitPlatform()
+}

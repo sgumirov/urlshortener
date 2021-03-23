@@ -1,15 +1,13 @@
-NAME=UrlShortenerService
-VER=1.0
+NAME=urlshortener
+VER=0.0.1-SNAPSHOT
 
 SHELL=/bin/bash
 .SHELLFLAGS = -o pipefail -c
 
-PORT=8080
+PORT=28080
 IMAGE=shamil/url-shortener
 IMAGE-TEST=shamil/url-shortener-test
 CNT=url-shortener
-HOST ?= 127.0.0.1
-URL = http://$(HOST):$(PORT)/
 
 # Determine this makefile's path.
 # Be sure to place this BEFORE `include` directives, if any.
@@ -19,7 +17,7 @@ THIS_FILE := $(lastword $(MAKEFILE_LIST))
 .DEFAULT_GOAL:=help
 
 build :
-	@docker build -t $(IMAGE):latest -f Dockerfile .
+	@docker build --build-arg VERSION=${VER} --build-arg NAME=${NAME} -t $(IMAGE):latest -f Dockerfile .
 	@echo "Container built OK"
 
 build-test :

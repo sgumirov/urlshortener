@@ -17,10 +17,10 @@ For a list of operations see HTTP Endpoints section below.
 
 ## Quick run
 
-In docker:  
+In docker (port 28080):  
 `make publish start`
 
-Locally:  
+Locally (port 8080):  
 `make run-local`
 
 ## Frontends

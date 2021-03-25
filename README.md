@@ -10,6 +10,7 @@ For a list of operations see HTTP Endpoints section below.
   | HttpController | ==> | ShortenerService | ==> | ShortUrlRepository (Redis or InMemory) |
   ------------------     --------------------     ------------------------------------------
                                   || uses
+				  \/
  	                ----------------------
  		        | ShortNameGenerator |
                         ----------------------
@@ -30,14 +31,17 @@ Locally (port 8080):
 Endpoints:
 
 - [POST] `/add` with json object `{longUrl: string, desiredName: string}`, for example:
-```json
+```
 {
-  longUrl: 'http://google.com',
-  desiredName: 'gogl'
+  'longUrl': 'http://google.com',
+  'desiredName': 'gogl'
 }
 ```
 
-- [GET] `/**` extracts long url and redirects via `HTTP 302 Moved` or to '/' if not found.
+- [GET] `/` displays basic html input form allowing to add new url
+
+- [GET] `/*` extracts long url and redirects via `HTTP 302 Moved` or to '/' if not found.
+
 
 ### Message Queue
 

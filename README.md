@@ -30,7 +30,8 @@ Locally (port 8080):
 
 Endpoints:
 
-- [POST] `/add` with json object `{longUrl: string, desiredName: string}`, for example:
+- [POST] `/add` with json object `{longUrl: string, desiredName: string}` adds new url.  
+For example:
 ```
 {
   'longUrl': 'http://google.com',
